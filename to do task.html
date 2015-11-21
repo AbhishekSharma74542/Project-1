@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<style>
+table tbody tr:nth-child(odd)	{
+background-color: #CCFFF5;
+font-family : monospace;
+}
+table tbody tr:nth-child(even) {
+background-color: #33FFD6;
+font-family : monospace;
+}
+table thead tr th{
+border-bottom:0px;
+text-align: left;
+float-left:8px;
+font-family : monospace;
+font-weight : bold;
+font-style : italic;
+}
+h1{
+font-size : xx-large;
+font-style : italic;
+font-family : cursive;
+}
+#title{
+
+}
+</style>
+<body ng-controller = 'myController' style="background-color:#B0E0E6;>
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+    <div class="center-block">
+		<div id = "title">
+			<div id = "menu1"class="page-header" style = "text-align : center">
+			<h1 text-align="center">To Do App</h1>      
+		    </div>
+		</div>
+		<table class="table">
+		    <thead>
+              <tr>
+			  <th style="border-bottom: 0px;">Task for Today!!!!</th>
+              </tr>
+            </thead>
+			<tbody>
+			  <tr ng-repeat="x in tasks">
+					<td><input type="checkbox" ng-model="x.done"> {{x.task}}</td>
+			  </tr>
+			</tbody>
+		</table>
+		<form>
+			<input type ='text' ng-model='task' placeholder = "Enter a new Task">
+			<button type="submit" ng-click ="AddNew()" id="submit">Submit</button><span class="glyphicons glyphicons-ipad"></span>
+		</form>
+		<br>
+		<button ng-click = "Remove()" id = "submit"> Remove <span class="glyphicon glyphicon-trash"></span></button>
+	    <p id = "intro">Hello!!</p>
+	</div>
+	</div>
+	<div class="col-sm-2"></div>
+</div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myController', function($scope) {
+    $scope.tasks = [];
+    $scope.AddNew = function() {
+    $scope.tasks.push({task:$scope.task,done:false})
+    $scope.task = '';    
+    }
+	$scope.Remove = function(){
+    var oldTask = $scope.tasks;
+	$scope.tasks=[];
+	angular.forEach(oldTask, function(review){
+	if(review.done == false) $scope.tasks.push(review);
+    })
+	}
+	});
+
+$(document).ready(function(){
+    $("#submit").click(function(){
+        alert("Your Task is Added");
+    });
+});
+$(document).ready(function(){
+    $("#intro").css("background-color", "yellow");
+});
+
+</script>
+</body>
+</html>
+
